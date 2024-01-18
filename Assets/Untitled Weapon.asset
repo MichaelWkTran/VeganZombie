@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6044159c4b903844981b5d1744467375, type: 3}
+  m_Name: Untitled Weapon
+  m_EditorClassIdentifier: 
+  m_attackFront: {fileID: 7400000, guid: c696602cbffaaf74893cb7912ad0dd84, type: 2}
+  m_attackAngleFront: {fileID: 7400000, guid: 9e9d734696be37447b8c9b6d7682a662, type: 2}
+  m_attackBack: {fileID: 7400000, guid: 9c3c34fb7a750f24c9908c0e8a1e254a, type: 2}
+  m_attackAngleBack: {fileID: 7400000, guid: 81e5414fa7296964ca9cc999d98c5b69, type: 2}
+  m_attackSide: {fileID: 7400000, guid: ddaa0a0f1d89f0f4b9433564b0c9b9c2, type: 2}
+  m_hitbox:
+  - m_prefab: {fileID: -1311569074260529389, guid: 195c43a31c4e1ab489a16097ae2776bb, type: 3}
+    m_rotateWithVelocity: 0
+    m_projectileAngle: 0
+    m_projectileSpeed: 30
+    m_hitboxSpawnTime: 0
+    m_hitboxDuration: 0.5
+  m_cooldownDuration: 0.4
