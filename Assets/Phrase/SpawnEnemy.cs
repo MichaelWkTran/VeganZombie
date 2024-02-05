@@ -23,18 +23,21 @@ public class SpawnEnemyTrack : TrackAsset
 [System.Serializable]
 public class SpawnEnemyPlayableBehaviour : PlayableBehaviour
 {
-    [SerializeField] public ulong m_startFrame; //The start frame of the clip
-    [SerializeField] public ulong m_endFrame; //The ending frame of the clip
+    
+    [SerializeField] public double m_startTime; //The start frame of the clip
+    [SerializeField] public double m_endTime; //The ending frame of the clip
 
     public Enemy[] m_enemyPrefabs; //What enemy(ies) to spawn
     public bool m_spawnFromTombstone; //Whether to spawn the enemies from a tombstone that have been removed
     public Vector2 m_spawnLocation; //If not spawning from tombstone, specify spawn location
     public uint m_spawnNumber = 1U; //How many enemies to spawn during the length of the clip
     ulong m_spawnFrameDuration = 0; //How long does it take before the next enemy is spawned
+    double m_spawnTimeDuration = 0.0; //How long does it take before the next enemy is spawned
+    double m_currentTime = 0.0f;
 
     public override void OnBehaviourPlay(Playable playable, FrameData info)
     {
-        if (m_spawnNumber > 1) m_spawnFrameDuration = (m_endFrame - m_startFrame) / (m_spawnNumber - 1);
+        if (m_spawnNumber > 1) m_spawnTimeDuration = (m_endTime - m_startTime) / (m_spawnNumber - 1);
         SpawnEnemy();
     }
 
@@ -48,7 +51,8 @@ public class SpawnEnemyPlayableBehaviour : PlayableBehaviour
         if (gameManager == null) return;
 
         //Spawn Enemy
-        if ((_info.frameId - m_startFrame) % m_spawnFrameDuration == 0) SpawnEnemy();
+        m_currentTime += _info.deltaTime;
+        if (m_currentTime > m_spawnTimeDuration) { SpawnEnemy(); m_currentTime -= m_spawnTimeDuration; }
     }
 
     void SpawnEnemy()

@@ -205,7 +205,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8938271503616758006}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ae2ab888742320144891f7eb4eac92d9, type: 3}
+  m_Script: {fileID: 11500000, guid: 7f9020bf39ee8254685ac96b5b6ab7ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_targetVelocity: {x: 0, y: 0}
@@ -214,7 +214,7 @@ MonoBehaviour:
   m_moveDeceleration: 30
   m_idleDeceleration: 30
   m_rigidbody: {fileID: 3503691608203636838}
-  m_health: 5
+  m_health: 1
   m_offscreenIndicatorCanvas: {fileID: 4053006027545770080}
   m_offscreenIndicator: {fileID: 2540728067751610872}
   m_collider: {fileID: 2660491599335620470}

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -833,7 +833,7 @@ RectTransform:
   m_Children:
   - {fileID: 714014802}
   - {fileID: 1162440887}
-  m_Father: {fileID: 1242536432}
+  m_Father: {fileID: 980228761}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1112,6 +1112,11 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!4 &980228761 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1180625688663855284, guid: e4c9c2139345924488667311ead30fad, type: 3}
+  m_PrefabInstance: {fileID: 3301439072694357880}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1162440886
 GameObject:
   m_ObjectHideFlags: 0
@@ -1227,7 +1232,7 @@ RectTransform:
   m_Children:
   - {fileID: 1573769513}
   - {fileID: 271766625}
-  m_Father: {fileID: 1242536432}
+  m_Father: {fileID: 980228761}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1414,7 +1419,7 @@ RectTransform:
   m_Children:
   - {fileID: 1963781178}
   - {fileID: 1931196399}
-  m_Father: {fileID: 1242536432}
+  m_Father: {fileID: 980228761}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1728,11 +1733,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!224 &1242536432 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 1371436512826672896, guid: e4c9c2139345924488667311ead30fad, type: 3}
-  m_PrefabInstance: {fileID: 3301439072694357880}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1350594829
 GameObject:
   m_ObjectHideFlags: 0
@@ -1861,19 +1861,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b8ad2b416ccf534cbc101fbffb7c6a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_progress: 0
-  m_finalProgress: 5
-  m_maxDryness: 0
-  m_minDryness: 0
-  m_dryness: 0
-  m_collider: {fileID: 1364347037}
-  m_spiteRenderer: {fileID: 1364347035}
-  m_plant: {fileID: 0}
-  m_growthStages:
-  - {fileID: -1669951803, guid: ac6e7a1b95e51934b94607c1e579e76b, type: 3}
-  - {fileID: -1035158441, guid: ac6e7a1b95e51934b94607c1e579e76b, type: 3}
-  - {fileID: 18313439, guid: ac6e7a1b95e51934b94607c1e579e76b, type: 3}
-  - {fileID: 263924257, guid: ac6e7a1b95e51934b94607c1e579e76b, type: 3}
 --- !u!61 &1364347037
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2100,7 +2087,7 @@ RectTransform:
   m_Children:
   - {fileID: 1214990075}
   - {fileID: 1726036240}
-  m_Father: {fileID: 1242536432}
+  m_Father: {fileID: 980228761}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2673,10 +2660,9 @@ MonoBehaviour:
   m_rigidbody: {fileID: 1736343976}
   m_maxHealth: 100
   m_health: 100
-  m_weapon: {fileID: 11400000, guid: 41ecf4f3eac169c419f8af05ee767696, type: 2}
+  m_weapon: {fileID: 11400000, guid: 76cf7d648c7af764ab87ab9d6bd79f0c, type: 2}
   m_gunTransform: {fileID: 693771304}
   m_gunMuzzle: {fileID: 882576438}
-  m_invincibleTime: 2
   m_collider: {fileID: 1736343977}
   m_spriteRenderer: {fileID: 1736343973}
   m_animator: {fileID: 1736343978}
@@ -3351,17 +3337,17 @@ PrefabInstance:
     - {fileID: 1546704962759454103, guid: e4c9c2139345924488667311ead30fad, type: 3}
     - {fileID: 4354018805492273000, guid: e4c9c2139345924488667311ead30fad, type: 3}
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 1371436512826672896, guid: e4c9c2139345924488667311ead30fad, type: 3}
-      insertIndex: 2
+    - targetCorrespondingSourceObject: {fileID: 1180625688663855284, guid: e4c9c2139345924488667311ead30fad, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 943837037}
-    - targetCorrespondingSourceObject: {fileID: 1371436512826672896, guid: e4c9c2139345924488667311ead30fad, type: 3}
-      insertIndex: 3
+    - targetCorrespondingSourceObject: {fileID: 1180625688663855284, guid: e4c9c2139345924488667311ead30fad, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 1511266027}
-    - targetCorrespondingSourceObject: {fileID: 1371436512826672896, guid: e4c9c2139345924488667311ead30fad, type: 3}
-      insertIndex: 4
+    - targetCorrespondingSourceObject: {fileID: 1180625688663855284, guid: e4c9c2139345924488667311ead30fad, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 1190868770}
-    - targetCorrespondingSourceObject: {fileID: 1371436512826672896, guid: e4c9c2139345924488667311ead30fad, type: 3}
-      insertIndex: 5
+    - targetCorrespondingSourceObject: {fileID: 1180625688663855284, guid: e4c9c2139345924488667311ead30fad, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 1176290526}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e4c9c2139345924488667311ead30fad, type: 3}

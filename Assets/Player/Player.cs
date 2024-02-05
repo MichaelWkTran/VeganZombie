@@ -6,8 +6,9 @@ public class Player : CharacterController, IDamageable
 {
     public static Player m_current { get; private set; }
 
-    [SerializeField] float m_maxHealth;
+    [SerializeField] float m_maxHealth; public float m_MaxHealth { get { return m_maxHealth; } }
     public float m_health;
+    public delegate void OnPropertyChanged(); public event OnPropertyChanged m_onPropertyChanged;
 
     [Header("Combat")]
     public Weapon m_weapon;
@@ -15,6 +16,9 @@ public class Player : CharacterController, IDamageable
     [SerializeField] Transform m_gunTransform;
     [SerializeField] Transform m_gunMuzzle;
     Vector2 m_lookDir;
+
+    [SerializeField] float m_invincibleTime;
+    [SerializeField] float m_invincibleCooldown;
 
     [Header("Inputs")]
     InputAction m_moveAction;
@@ -52,6 +56,9 @@ public class Player : CharacterController, IDamageable
 
         //
         m_gunTransform.rotation = Quaternion.Euler(0.0f, 0.0f, Vector2.SignedAngle(Vector2.right, m_lookDir));
+
+        //
+        if (m_invincibleCooldown > 0.0f) m_invincibleCooldown -= m_invincibleCooldown;
 
         #endregion
 
@@ -100,6 +107,14 @@ public class Player : CharacterController, IDamageable
             if (_hitbox.m_rotateWithVelocity)
                 hitboxRigidbody.transform.rotation =
                     Quaternion.Euler(0.0f, 0.0f, Vector2.SignedAngle(Vector2.right, hitboxRigidbody.velocity));
+
+            //Set Hitbox Damage
+            Hitbox spawnedHitboxInfo = hitboxRigidbody.GetComponent<Hitbox>();
+            if (spawnedHitboxInfo != null) yield break;
+
+            spawnedHitboxInfo = spawnedhitbox.gameObject.AddComponent<Hitbox>();
+            spawnedHitboxInfo.m_damageRecipient = Hitbox.DamageRecipient.Enemy;
+            spawnedHitboxInfo.m_damage = _hitbox.m_hitboxDamage;
         }
         foreach (Weapon.Hitbox hitbox in m_weapon.m_hitbox) StartCoroutine(SpawnHitbox(hitbox));
         
@@ -109,9 +124,22 @@ public class Player : CharacterController, IDamageable
 
     public void Damage(float _damage, Vector2 _hitImpulse = new Vector2())
     {
+        if (m_invincibleCooldown > 0.0f) return;
+
         m_health -= _damage;
+        m_invincibleCooldown = m_invincibleTime;
+        
+        //Flash Sprite
+        LeanTween.value(gameObject, 0.0f, 0.1f, 0.5f).setEasePunch().setOnUpdate((float _flashAlpha) => { m_spriteRenderer.material.SetFloat("_FlashAlpha", _flashAlpha); });
+
+        //Push the player when they are hit
         if (_hitImpulse != Vector2.zero) m_rigidbody.AddForce(_hitImpulse, ForceMode2D.Impulse);
+        
+        //Kill the player when all health is lost
         if (m_health <= 0) Kill();
+
+        //Notify bindings of health update such as for UI
+        m_onPropertyChanged.Invoke();
     }
 
     public void Kill()
