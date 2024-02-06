@@ -31,7 +31,6 @@ public class SpawnEnemyPlayableBehaviour : PlayableBehaviour
     public bool m_spawnFromTombstone; //Whether to spawn the enemies from a tombstone that have been removed
     public Vector2 m_spawnLocation; //If not spawning from tombstone, specify spawn location
     public uint m_spawnNumber = 1U; //How many enemies to spawn during the length of the clip
-    ulong m_spawnFrameDuration = 0; //How long does it take before the next enemy is spawned
     double m_spawnTimeDuration = 0.0; //How long does it take before the next enemy is spawned
     double m_currentTime = 0.0f;
 

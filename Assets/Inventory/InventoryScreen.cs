@@ -5,8 +5,5 @@ using UnityEngine.UI;
 
 public class InventoryScreen : MonoBehaviour
 {
-    [SerializeField] LayoutGroup m_slotGroup;
-    [SerializeField] InventorySystem m_inventory;
-
-    
+    public InventoryScreenSlot[] m_screenSlots;
 }

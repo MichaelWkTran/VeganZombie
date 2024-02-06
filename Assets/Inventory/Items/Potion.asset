@@ -13,9 +13,6 @@ MonoBehaviour:
   m_Name: Potion
   m_EditorClassIdentifier: 
   m_description: Ups the health
-  m_timeline: {fileID: 11400000, guid: d1af59576f308ca47b93364dc0c1de36, type: 2}
-  m_speed: 0
-  m_icon: {fileID: 0}
+  m_icon: {fileID: 21300000, guid: 4d22e83b22b6f784eba25bae28290a21, type: 3}
   m_category: 00000000
-  m_discovered: 0
-  m_favourite: 0
+  m_capacity: 1

@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
 #if UNITY_EDITOR
     bool m_checkSingleton = false;
 #endif
-    [SerializeField] InventorySystem m_playerInventory = new InventorySystem(); public InventorySystem m_PlayerInventory { get { return m_playerInventory; } }
+    [SerializeField] InventorySystem m_playerInventory = new InventorySystem(40); public InventorySystem m_PlayerInventory { get { return m_playerInventory; } }
 
     public bool m_isDay { get; private set; } = true; //Whether it is currently day time or night time
     public delegate void OnDayNightChangeDelegate(bool _wasDay);
@@ -36,7 +36,6 @@ public class GameManager : MonoBehaviour
             m_timerSlider.maxValue = m_dayNightDuration;
         }
     }
-
 
     void OnEnable()
     {

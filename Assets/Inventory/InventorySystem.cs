@@ -1,7 +1,7 @@
 using UnityEngine;
 using System;
 using UnityEditor;
-using static InventorySystem;
+using static UnityEditor.Progress;
 
 [Serializable] public class InventorySystem
 {
@@ -17,12 +17,19 @@ using static InventorySystem;
         public byte m_amount; //How much of that item is currently stored
     }
 
-    static int m_slotColumns = 10; static int m_slotRows = 4;
-    public Slot[,] m_slots { get; private set; } = new Slot[m_slotColumns, m_slotRows]; //The first row is accessible in the hotbar
+    public Slot[] m_slots;
     public delegate void OnChangeDelegate(Slot _slot); public event OnChangeDelegate m_onChange;
+
+    public InventorySystem(int _slotCount)
+    {
+        m_slots = new Slot[_slotCount];
+    }
 
     public byte AddItem(Item _item, byte _amountToAdd)
     {
+        //Check whether the given item is valid or whether the amount to add is valid
+        if (_item == null || m_amountToAdjust <= 0) return _amountToAdd;
+
         //Iterate over each slot
         foreach (Slot slot in m_slots)
         {
@@ -42,62 +49,62 @@ using static InventorySystem;
         }
 
         //If there is an amount remaining after iterating all slots, create new slots
-        for (int col = 0; col < m_slotColumns; col++)
-            for (int row = 0; row < m_slotRows; row++)
-            {
-                if (m_slots[col, row] != null) continue;
+        for (int i = 0; i < m_slots.Length; i++)
+        {
+            if (m_slots[i] != null) continue;
 
-                //Add amount to the slot
-                Slot slot = new Slot(_item, Math.Min(_amountToAdd, _item.m_capacity));
-                m_slots[col, row] = slot;
-                _amountToAdd -= slot.m_amount;
-                m_onChange?.Invoke(slot);
+            //Add amount to the slot
+            Slot slot = new Slot(_item, Math.Min(_amountToAdd, _item.m_capacity));
+            m_slots[i] = slot;
+            _amountToAdd -= slot.m_amount;
+            m_onChange?.Invoke(slot);
 
-                if (_amountToAdd == 0) return 0;
-            }
+            if (_amountToAdd == 0) return 0;
+        }
         
-
         //If there is an amount remaining after iterating all slots, return the remaining amount
         return _amountToAdd;
     }
 
     public byte SubtractItem(Item _item, byte _amountToSubtract)
     {
+        //Check whether the given item is valid or whether the amount to subtract is valid
+        if (_item == null || m_amountToAdjust <= 0) return _amountToSubtract;
+
         //Iterate over each row
-        for (int col = 0; col < m_slotColumns; col++)
-            for (int row = 0; row < m_slotRows; row++)
-            {
-                Slot slot = m_slots[col, row];
+        for (int i = 0; i < m_slots.Length; i++)
+        {
+            Slot slot = m_slots[i];
 
-                //Skip slots that do not have a matching item
-                if (slot == null || slot.m_item != _item) continue;
+            //Skip slots that do not have a matching item
+            if (slot == null || slot.m_item != _item) continue;
 
-                //Calculate the amount that can be subtracted from this slot
-                byte possibleDecrease = Math.Min(_amountToSubtract, slot.m_amount);
+            //Calculate the amount that can be subtracted from this slot
+            byte possibleDecrease = Math.Min(_amountToSubtract, slot.m_amount);
 
-                //Subtract amount from the slot
-                slot.m_amount -= possibleDecrease;
-                _amountToSubtract -= possibleDecrease;
-                m_onChange?.Invoke(slot);
+            //Subtract amount from the slot
+            slot.m_amount -= possibleDecrease;
+            _amountToSubtract -= possibleDecrease;
+            m_onChange?.Invoke(slot);
 
-                //If the slot is empty, set it to null
-                if (slot.m_amount == 0) m_slots[col, row] = null;
+            //If the slot is empty, set it to null
+            if (slot.m_amount == 0) m_slots[i] = null;
 
-                //If there is no amount remaining, exit the function
-                if (_amountToSubtract == 0) return 0;
-            }
+            //If there is no amount remaining, exit the function
+            if (_amountToSubtract == 0) return 0;
+        }
         
         //If there is an amount remaining after iterating all slots, return the remaining amount
         return _amountToSubtract;
     }
 
-    public bool SubtractItem(Vector2Int _slotPos, byte _amountToSubtract, bool _capAtMinimum = true)
+    public bool SubtractItem(int _slotIndex, byte _amountToSubtract, bool _capAtMinimum = true)
     {
         //Check if the position are within the bounds of the array
-        if (_slotPos.x < 0 || _slotPos.x >= m_slotColumns || _slotPos.y < 0 || _slotPos.y >= m_slotRows) return false;
+        if (_slotIndex < 0 || _slotIndex >= m_slots.Length) return false;
 
         //Check whether the slot contains an item
-        Slot slot = m_slots[_slotPos.x, _slotPos.y];
+        Slot slot = m_slots[_slotIndex];
         if (slot == null) return false;
 
         //
@@ -105,14 +112,17 @@ using static InventorySystem;
 
         //
         slot.m_amount -= _amountToSubtract;
-        if (slot.m_amount <= 0) m_slots[_slotPos.x, _slotPos.y] = null;
-        m_onChange?.Invoke(m_slots[_slotPos.x, _slotPos.y]);
+        if (slot.m_amount <= 0) m_slots[_slotIndex] = null;
+        m_onChange?.Invoke(m_slots[_slotIndex]);
 
         return true;
     }
 
     public byte CheckAddItem(Item _item, byte _amountToAdd)
     {
+        //Check whether the given item is valid or whether the amount to add is valid
+        if (_item == null || m_amountToAdjust <= 0) return _amountToAdd;
+
         //Iterate over each slot
         foreach (Slot slot in m_slots)
         {
@@ -130,16 +140,15 @@ using static InventorySystem;
         }
 
         //If there is an amount remaining after iterating all slots, check if new slots can be created
-        for (int col = 0; col < m_slotColumns; col++)
-            for (int row = 0; row < m_slotRows; row++)
-            {
-                if (m_slots[col, row] != null) continue;
+        for (int i = 0; i < m_slots.Length; i++)
+        {
+            if (m_slots[i] != null) continue;
 
-                //Subtract the possible amount to add from the amount to check
-                _amountToAdd -= Math.Min(_amountToAdd, _item.m_capacity);
+            //Subtract the possible amount to add from the amount to check
+            _amountToAdd -= Math.Min(_amountToAdd, _item.m_capacity);
 
-                if (_amountToAdd == 0) return 0;
-            }
+            if (_amountToAdd == 0) return 0;
+        }
 
         //If there is an amount remaining after iterating all slots, return the remaining amount
         return _amountToAdd;
@@ -147,6 +156,9 @@ using static InventorySystem;
 
     public byte CheckSubtractItem(Item _item, byte _amountToSubtract)
     {
+        //Check whether the given item is valid or whether the amount to subtract is valid
+        if (_item == null || m_amountToAdjust <= 0) return _amountToSubtract;
+
         //Iterate over each slot
         foreach (Slot slot in m_slots)
         {
@@ -167,31 +179,31 @@ using static InventorySystem;
         return _amountToSubtract;
     }
 
-    public bool SwapItem(Vector2Int _slotAPos, Vector2Int _slotBPos)
+    public bool SwapItem(int _slotAIndex, int _slotBIndex)
     {
         //Check if the positions are within the bounds of the array
-        if (_slotAPos.x < 0 || _slotAPos.x >= m_slotColumns || _slotAPos.y < 0 || _slotAPos.y >= m_slotRows ||
-            _slotBPos.x < 0 || _slotBPos.x >= m_slotColumns || _slotBPos.y < 0 || _slotBPos.y >= m_slotRows) return false;
+        if (_slotAIndex < 0 || _slotAIndex >= m_slots.Length) return false;
+        if (_slotBIndex < 0 || _slotBIndex >= m_slots.Length) return false;
 
         //Swap the slots
-        Slot temp = m_slots[_slotAPos.x, _slotAPos.y];
-        m_slots[_slotAPos.x, _slotAPos.y] = m_slots[_slotBPos.x, _slotBPos.y];
-        m_slots[_slotBPos.x, _slotBPos.y] = temp;
-        m_onChange?.Invoke(m_slots[_slotAPos.x, _slotAPos.y]);
-        m_onChange?.Invoke(m_slots[_slotBPos.x, _slotBPos.y]);
+        Slot temp = m_slots[_slotAIndex];
+        m_slots[_slotAIndex] = m_slots[_slotBIndex];
+        m_slots[_slotBIndex] = temp;
+        m_onChange?.Invoke(m_slots[_slotAIndex]);
+        m_onChange?.Invoke(m_slots[_slotBIndex]);
 
         return true;
     }
 
-    public bool FillSlot(Vector2Int _slotTargetPos, Vector2Int _slotSourcePos)
+    public bool FillSlot(int _slotTargetPos, int _slotSourcePos)
     {
         //Check if the positions are within the bounds of the array
-        if (_slotTargetPos.x < 0 || _slotTargetPos.x >= m_slotColumns || _slotTargetPos.y < 0 || _slotTargetPos.y >= m_slotRows ||
-            _slotSourcePos.x < 0 || _slotSourcePos.x >= m_slotColumns || _slotSourcePos.y < 0 || _slotSourcePos.y >= m_slotRows) return false;
+        if (_slotTargetPos < 0 || _slotTargetPos >= m_slots.Length) return false;
+        if (_slotSourcePos < 0 || _slotSourcePos >= m_slots.Length) return false;
 
         //Get slots
-        Slot targetSlot = m_slots[_slotTargetPos.x, _slotTargetPos.y];
-        Slot sourceSlot = m_slots[_slotSourcePos.x, _slotSourcePos.y];
+        Slot targetSlot = m_slots[_slotTargetPos];
+        Slot sourceSlot = m_slots[_slotSourcePos];
         if (targetSlot == null && sourceSlot == null) return false;
         if (targetSlot.m_item != sourceSlot.m_item) return false;
 
@@ -208,6 +220,9 @@ using static InventorySystem;
     }
 
 #if UNITY_EDITOR
+    public Item m_itemToAdjust;
+    public byte m_amountToAdjust;
+
     [CustomPropertyDrawer(typeof(InventorySystem))]
     public class InventoryDrawer : PropertyDrawer
     {
@@ -220,30 +235,45 @@ using static InventorySystem;
             InventorySystem inventorySystem = (InventorySystem)fieldInfo.GetValue(_property.serializedObject.targetObject);
             Rect fieldPosition = new Rect(_position.x, _position.y, _position.width, EditorGUIUtility.singleLineHeight);
 
-            //Add/Subtract Item
-            if (!Application.isPlaying) return;
-
             //Check fold out open
             isFoldOutOpen = EditorGUI.Foldout(fieldPosition, isFoldOutOpen, _label);
             if (!isFoldOutOpen) return;
 
-            //View all slots
+            // Display m_itemToAdjust and m_amountToAdjust fields
             fieldPosition.y += EditorGUIUtility.singleLineHeight;
-            for (int row = 0; row < m_slotRows; row++) for (int col = 0; col < m_slotColumns; col++)
+            inventorySystem.m_itemToAdjust = (Item)EditorGUI.ObjectField(fieldPosition, "Item to Adjust", inventorySystem.m_itemToAdjust, typeof(Item), true);
+
+            fieldPosition.y += EditorGUIUtility.singleLineHeight;
+            inventorySystem.m_amountToAdjust = (byte)EditorGUI.IntField(fieldPosition, "Amount to Adjust", inventorySystem.m_amountToAdjust);
+
+            if (Application.isPlaying)
+            {
+                //Add/Subtract Item
+                fieldPosition.y += EditorGUIUtility.singleLineHeight;
+                if (GUI.Button(fieldPosition, "Add Item")) inventorySystem.AddItem(inventorySystem.m_itemToAdjust, inventorySystem.m_amountToAdjust);
+
+                fieldPosition.y += EditorGUIUtility.singleLineHeight;
+                if (GUI.Button(fieldPosition, "Remove Item")) inventorySystem.SubtractItem(inventorySystem.m_itemToAdjust, inventorySystem.m_amountToAdjust);
+
+                //View all slots
+                fieldPosition.y += EditorGUIUtility.singleLineHeight;
+                for (int i = 0; i < inventorySystem.m_slots.Length; i++)
                 {
-                    Slot slot = inventorySystem.m_slots[col, row];
-                    string label = $"\t[{col}, {row}]: ";
+                    Slot slot = inventorySystem.m_slots[i];
+                    string label = $"\t[{i}]: ";
 
                     //Show slot data
                     if (slot != null) label += $"Item: {slot.m_item.name}, Amount: {slot.m_amount}";
+                    else label += "null";
 
                     //Print slot data
                     EditorGUI.LabelField(fieldPosition, label);
                     fieldPosition.y += EditorGUIUtility.singleLineHeight;
                 }
 
-            //Add space
-            fieldPosition.y += EditorGUIUtility.singleLineHeight;
+                //Add space
+                fieldPosition.y += EditorGUIUtility.singleLineHeight;
+            }
 
             //Set property height
             propertyHeight += fieldPosition.y + (1.0f * EditorGUIUtility.singleLineHeight);

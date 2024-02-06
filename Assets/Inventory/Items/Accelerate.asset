@@ -13,9 +13,6 @@ MonoBehaviour:
   m_Name: Accelerate
   m_EditorClassIdentifier: 
   m_description: Speeds up the player
-  m_timeline: {fileID: 0}
-  m_speed: 0
-  m_icon: {fileID: 0}
+  m_icon: {fileID: -191895787, guid: 8b1fa7285c4552a479b01a98ade36560, type: 3}
   m_category: 000000000200000003000000
-  m_discovered: 0
-  m_favourite: 0
+  m_capacity: 1
