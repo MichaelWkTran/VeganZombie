@@ -5,9 +5,9 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using static InventorySystem;
 
-public class InventoryScreenSlot: MonoBehaviour
+public class InvScreenSlot: MonoBehaviour
 {
-    static InventoryScreenSlot m_heldScreenSlot;
+    static InvScreenSlot m_heldScreenSlot;
 
     [SerializeField] Button m_button;
     [SerializeField] Canvas m_canvas;
@@ -60,7 +60,7 @@ public class InventoryScreenSlot: MonoBehaviour
         m_canvas.sortingOrder = 20;
     }
 
-    public void Drop(InventoryScreenSlot _selectedScreenSlot)
+    public void Drop(InvScreenSlot _selectedScreenSlot)
     {
         //Drop the slot back into its original slot
         if (m_heldScreenSlot == _selectedScreenSlot) ResetSlot();

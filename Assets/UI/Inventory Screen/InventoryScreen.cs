@@ -5,5 +5,5 @@ using UnityEngine.UI;
 
 public class InventoryScreen : MonoBehaviour
 {
-    public InventoryScreenSlot[] m_screenSlots;
+    public InvScreenSlot[] m_screenSlots;
 }

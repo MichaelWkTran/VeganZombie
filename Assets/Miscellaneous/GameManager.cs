@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public delegate void OnDayNightChangeDelegate(bool _wasDay);
     public event OnDayNightChangeDelegate m_onDayNightChange; //Called when m_isDay has changed
     public float m_time { get; private set; } = 0.0f; //The current time in the day or night
+    public bool m_progressTime = true; //Whether the day and night cycle should be paused
     [SerializeField] float m_dayNightDuration = 0.0f; //How long does day or night time last?
     [SerializeField] CanvasGroup m_nightCanvasGroup;
 
@@ -85,15 +86,18 @@ public class GameManager : MonoBehaviour
     {
         if (Time.timeScale > 0.0f)
         {
-            //Progress the time of day
-            m_time += Time.deltaTime;
+            if (m_progressTime)
+            {
+                //Progress the time of day
+                m_time += Time.deltaTime;
 
-            //Set placeholder night canvas alpha
-            m_nightCanvasGroup.alpha = m_time / m_dayNightDuration;
-            if (!m_isDay) m_nightCanvasGroup.alpha = 1.0f - m_nightCanvasGroup.alpha;
+                //Set placeholder night canvas alpha
+                m_nightCanvasGroup.alpha = m_time / m_dayNightDuration;
+                if (!m_isDay) m_nightCanvasGroup.alpha = 1.0f - m_nightCanvasGroup.alpha;
 
-            //Swap from daytime to night time
-            if (m_time > m_dayNightDuration) SetIsDay(!m_isDay);
+                //Swap from daytime to night time
+                if (m_time > m_dayNightDuration) SetIsDay(!m_isDay);
+            }            
         }
     }
 
