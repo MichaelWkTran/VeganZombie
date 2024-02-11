@@ -73,11 +73,14 @@ public class Player : CharacterController, IDamageable
 
     private void Attack()
     {
-        if (m_weapon == null) return;
+        InventorySystem.Slot selectedSlot = GameManager.m_current.m_SelectedHotbarSlot;
+        Weapon weapon = (selectedSlot.m_item != null) ? (Weapon)selectedSlot.m_item : null;
+
+        if (!selectedSlot.IsValid()) return;
         if (m_cooldown > 0.0f) return;
 
         //Set current attack cooldown
-        m_cooldown = m_weapon.m_cooldownDuration;
+        m_cooldown = weapon.m_cooldownDuration;
 
         //Shoot projectile
         IEnumerator SpawnHitbox(Weapon.Hitbox _hitbox)
@@ -109,7 +112,7 @@ public class Player : CharacterController, IDamageable
             spawnedHitboxInfo.m_damageRecipient = Hitbox.DamageRecipient.Enemy;
             spawnedHitboxInfo.m_damage = _hitbox.m_hitboxDamage;
         }
-        foreach (Weapon.Hitbox hitbox in m_weapon.m_hitbox) StartCoroutine(SpawnHitbox(hitbox));
+        foreach (Weapon.Hitbox hitbox in weapon.m_hitbox) StartCoroutine(SpawnHitbox(hitbox));
         
         //Play Attack Animation
         m_animator.SetTrigger("Attack");

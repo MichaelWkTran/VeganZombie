@@ -322,8 +322,87 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_maxHealth: 100
   m_playerInventory:
-    m_itemToAdjust: {fileID: 0}
-    m_amountToAdjust: 0
+    m_slots:
+    - m_item: {fileID: 11400000, guid: 76cf7d648c7af764ab87ab9d6bd79f0c, type: 2}
+      m_amount: 1
+    - m_item: {fileID: 0}
+      m_amount: 0
+    - m_item: {fileID: 0}
+      m_amount: 0
+    - m_item: {fileID: 0}
+      m_amount: 0
+    - m_item: {fileID: 0}
+      m_amount: 0
+    - m_item: {fileID: 0}
+      m_amount: 0
+    - m_item: {fileID: 0}
+      m_amount: 0
+    - m_item: {fileID: 0}
+      m_amount: 0
+    - m_item: {fileID: 0}
+      m_amount: 0
+    - m_item: {fileID: 0}
+      m_amount: 0
+    - m_item: {fileID: 0}
+      m_amount: 0
+    - m_item: {fileID: 0}
+      m_amount: 0
+    - m_item: {fileID: 0}
+      m_amount: 0
+    - m_item: {fileID: 0}
+      m_amount: 0
+    - m_item: {fileID: 0}
+      m_amount: 0
+    - m_item: {fileID: 0}
+      m_amount: 0
+    - m_item: {fileID: 0}
+      m_amount: 0
+    - m_item: {fileID: 0}
+      m_amount: 0
+    - m_item: {fileID: 0}
+      m_amount: 0
+    - m_item: {fileID: 0}
+      m_amount: 0
+    - m_item: {fileID: 0}
+      m_amount: 0
+    - m_item: {fileID: 0}
+      m_amount: 0
+    - m_item: {fileID: 0}
+      m_amount: 0
+    - m_item: {fileID: 0}
+      m_amount: 0
+    - m_item: {fileID: 0}
+      m_amount: 0
+    - m_item: {fileID: 0}
+      m_amount: 0
+    - m_item: {fileID: 0}
+      m_amount: 0
+    - m_item: {fileID: 0}
+      m_amount: 0
+    - m_item: {fileID: 0}
+      m_amount: 0
+    - m_item: {fileID: 0}
+      m_amount: 0
+    - m_item: {fileID: 0}
+      m_amount: 0
+    - m_item: {fileID: 0}
+      m_amount: 0
+    - m_item: {fileID: 0}
+      m_amount: 0
+    - m_item: {fileID: 0}
+      m_amount: 0
+    - m_item: {fileID: 0}
+      m_amount: 0
+    - m_item: {fileID: 0}
+      m_amount: 0
+    - m_item: {fileID: 0}
+      m_amount: 0
+    - m_item: {fileID: 0}
+      m_amount: 0
+    - m_item: {fileID: 0}
+      m_amount: 0
+    - m_item: {fileID: 0}
+      m_amount: 0
   m_progressTime: 1
   m_dayNightDuration: 10
   m_nightCanvasGroup: {fileID: 3936510095906738385}
@@ -853,7 +932,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -1336,7 +1415,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.31132078, g: 0.31132078, b: 0.31132078, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:

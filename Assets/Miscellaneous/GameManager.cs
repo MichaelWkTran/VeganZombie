@@ -20,8 +20,9 @@ public class GameManager : MonoBehaviour
             m_healthSlider.value = m_health = value;
         }
     }
-    [SerializeField] InventorySystem m_playerInventory = new InventorySystem(40); public InventorySystem m_PlayerInventory { get { return m_playerInventory; } }
-    public InventorySystem.Slot m_selectedHotbarSlot = null;
+    [SerializeField] InventorySystem m_playerInventory; public InventorySystem m_PlayerInventory { get { return m_playerInventory; } }
+    public int m_selectedHotbarSlot = 0;
+    public InventorySystem.Slot m_SelectedHotbarSlot { get { return m_PlayerInventory.m_slots[m_selectedHotbarSlot]; } }
 
 
     [Header("Day Night Cycle")]
