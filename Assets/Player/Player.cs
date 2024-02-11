@@ -6,10 +6,6 @@ public class Player : CharacterController, IDamageable
 {
     public static Player m_current { get; private set; }
 
-    [SerializeField] float m_maxHealth; public float m_MaxHealth { get { return m_maxHealth; } }
-    public float m_health;
-    public delegate void OnPropertyChanged(); public event OnPropertyChanged m_onPropertyChanged;
-
     [Header("Combat")]
     public Weapon m_weapon;
     float m_cooldown;
@@ -33,9 +29,6 @@ public class Player : CharacterController, IDamageable
     void Start()
     {
         m_current = this;
-
-        //Set variables
-        m_health = m_maxHealth;
 
         //Set Inputs
         m_moveAction = m_playerInput.actions["Movement"];
@@ -125,8 +118,6 @@ public class Player : CharacterController, IDamageable
     public void Damage(float _damage, Vector2 _hitImpulse = new Vector2())
     {
         if (m_invincibleCooldown > 0.0f) return;
-
-        m_health -= _damage;
         m_invincibleCooldown = m_invincibleTime;
         
         //Flash Sprite
@@ -134,12 +125,13 @@ public class Player : CharacterController, IDamageable
 
         //Push the player when they are hit
         if (_hitImpulse != Vector2.zero) m_rigidbody.AddForce(_hitImpulse, ForceMode2D.Impulse);
-        
-        //Kill the player when all health is lost
-        if (m_health <= 0) Kill();
 
-        //Notify bindings of health update such as for UI
-        m_onPropertyChanged.Invoke();
+        //Update Game Manager
+        if (!GameManager.m_current) return;
+
+        GameManager.m_current.m_Health -= _damage;
+        //Kill the player when all health is lost
+        if (GameManager.m_current.m_Health <= 0) Kill();
     }
 
     public void Kill()

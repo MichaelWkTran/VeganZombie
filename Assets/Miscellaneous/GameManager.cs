@@ -9,21 +9,36 @@ public class GameManager : MonoBehaviour
 #if UNITY_EDITOR
     bool m_checkSingleton = false;
 #endif
-    [SerializeField] InventorySystem m_playerInventory = new InventorySystem(40); public InventorySystem m_PlayerInventory { get { return m_playerInventory; } }
 
+    [Header("Player")]
+    [SerializeField] float m_maxHealth; public float m_MaxHealth { get { return m_maxHealth; } }
+    float m_health; public float m_Health
+    {
+        get { return m_health; }
+        set
+        {
+            m_healthSlider.value = m_health = value;
+        }
+    }
+    [SerializeField] InventorySystem m_playerInventory = new InventorySystem(40); public InventorySystem m_PlayerInventory { get { return m_playerInventory; } }
+    public InventorySystem.Slot m_selectedHotbarSlot = null;
+
+
+    [Header("Day Night Cycle")]
+    public bool m_progressTime = true; //Whether the day and night cycle should be paused
+    public float m_time { get; private set; } = 0.0f; //The current time in the day or night
     public bool m_isDay { get; private set; } = true; //Whether it is currently day time or night time
     public delegate void OnDayNightChangeDelegate(bool _wasDay);
     public event OnDayNightChangeDelegate m_onDayNightChange; //Called when m_isDay has changed
-    public float m_time { get; private set; } = 0.0f; //The current time in the day or night
-    public bool m_progressTime = true; //Whether the day and night cycle should be paused
     [SerializeField] float m_dayNightDuration = 0.0f; //How long does day or night time last?
     [SerializeField] CanvasGroup m_nightCanvasGroup;
 
 
-    #region
+    #region UI
     [Header("UI")]
     [SerializeField] Slider m_healthSlider;
     [SerializeField] Slider m_timerSlider;
+    [SerializeField] ToggleGroup m_hotbarToggleGroup;
 
     #endregion
 
@@ -34,27 +49,9 @@ public class GameManager : MonoBehaviour
 
         //Set Attributes
         {
+            m_Health = m_healthSlider.maxValue = m_maxHealth;
             m_timerSlider.maxValue = m_dayNightDuration;
         }
-    }
-
-    void OnEnable()
-    {
-        IEnumerator SetPlayerAttributes()
-        {
-            yield return new WaitUntil(() => Player.m_current != null);
-            
-            m_healthSlider.maxValue = Player.m_current.m_MaxHealth;
-            Player.m_current.m_onPropertyChanged += OnPlayerPropertyChanged;
-            OnPlayerPropertyChanged();
-        }
-        StartCoroutine(SetPlayerAttributes());
-    }
-
-    void OnDisable()
-    {
-        if (Player.m_current != null) Player.m_current.m_onPropertyChanged -= OnPlayerPropertyChanged;
-        
     }
 
     void Start()
@@ -70,11 +67,6 @@ public class GameManager : MonoBehaviour
         }
 
 #endif
-
-        ////Set Attributes
-        //{
-        //    m_healthSlider.maxValue = Player.m_current.m_MaxHealth;
-        //}
 
         //Start the day
         SetIsDay(true);
@@ -107,11 +99,6 @@ public class GameManager : MonoBehaviour
         {
             m_timerSlider.value = m_time;
         }
-    }
-
-    void OnPlayerPropertyChanged()
-    {
-        m_healthSlider.value = Player.m_current.m_health;
     }
 
     #endregion

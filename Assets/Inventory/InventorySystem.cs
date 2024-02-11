@@ -28,7 +28,7 @@ using static UnityEditor.Progress;
     public byte AddItem(Item _item, byte _amountToAdd)
     {
         //Check whether the given item is valid or whether the amount to add is valid
-        if (_item == null || m_amountToAdjust <= 0) return _amountToAdd;
+        if (_item == null || _amountToAdd <= 0) return _amountToAdd;
 
         //Iterate over each slot
         foreach (Slot slot in m_slots)
@@ -69,7 +69,7 @@ using static UnityEditor.Progress;
     public byte SubtractItem(Item _item, byte _amountToSubtract)
     {
         //Check whether the given item is valid or whether the amount to subtract is valid
-        if (_item == null || m_amountToAdjust <= 0) return _amountToSubtract;
+        if (_item == null || _amountToSubtract <= 0) return _amountToSubtract;
 
         //Iterate over each row
         for (int i = 0; i < m_slots.Length; i++)
@@ -121,7 +121,7 @@ using static UnityEditor.Progress;
     public byte CheckAddItem(Item _item, byte _amountToAdd)
     {
         //Check whether the given item is valid or whether the amount to add is valid
-        if (_item == null || m_amountToAdjust <= 0) return _amountToAdd;
+        if (_item == null || _amountToAdd <= 0) return _amountToAdd;
 
         //Iterate over each slot
         foreach (Slot slot in m_slots)
@@ -157,7 +157,7 @@ using static UnityEditor.Progress;
     public byte CheckSubtractItem(Item _item, byte _amountToSubtract)
     {
         //Check whether the given item is valid or whether the amount to subtract is valid
-        if (_item == null || m_amountToAdjust <= 0) return _amountToSubtract;
+        if (_item == null || _amountToSubtract <= 0) return _amountToSubtract;
 
         //Iterate over each slot
         foreach (Slot slot in m_slots)

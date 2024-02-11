@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Untitled Weapon", menuName = "Weapon", order = 1)]
-public class Weapon : ScriptableObject
+public class Weapon : Item
 {
    [Serializable] public struct Hitbox
     {

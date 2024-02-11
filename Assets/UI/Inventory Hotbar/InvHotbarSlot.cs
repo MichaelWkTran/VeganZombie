@@ -9,10 +9,11 @@ public class InvHotbarSlot: MonoBehaviour
     [SerializeField] RectTransform m_contentRectTransform;
     [SerializeField] Image m_slotIcon;
     [SerializeField] TMP_Text m_amountText;
-    Slot m_slot;
+    public Slot m_slot { get; private set; }
     
     void Start()
     {
+        m_toggle.onValueChanged.AddListener(delegate { OnValueChanged(); });
         GameManager.m_current.m_PlayerInventory.m_onChange += UpdateSlot;
         UpdateSlot();
     }
@@ -35,5 +36,11 @@ public class InvHotbarSlot: MonoBehaviour
             m_slotIcon.sprite = m_slot.m_item.m_icon;
             m_amountText.text = m_slot.m_amount.ToString();
         }
+    }
+
+    void OnValueChanged()
+    {
+        if (!GameManager.m_current) return;
+        GameManager.m_current.m_selectedHotbarSlot = m_toggle.group.GetFirstActiveToggle().GetComponent<InvHotbarSlot>().m_slot;
     }
 }

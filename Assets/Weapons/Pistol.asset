@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 69a6a92bd4feb374180560b7a3a50192, type: 3}
-  m_Name: Untitled Weapon
+  m_Name: Pistol
   m_EditorClassIdentifier: 
   m_attackFront: {fileID: 7400000, guid: c696602cbffaaf74893cb7912ad0dd84, type: 2}
   m_attackAngleFront: {fileID: 7400000, guid: 9e9d734696be37447b8c9b6d7682a662, type: 2}
