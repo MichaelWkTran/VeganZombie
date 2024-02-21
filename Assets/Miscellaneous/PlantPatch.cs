@@ -3,41 +3,49 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]
-public class PlantPatch : MonoBehaviour
+public class PlantPatch : GridObject
 {
     public float m_progress; 
-    public float m_finalProgress; //If progress reached final progress, the plant is ready to be plucked
-    public float m_maxDryness; //The max dryness of the plant
-    public float m_minDryness; //If below min dryness, the plant is dead
+    [SerializeField] ItemSeed m_itemSeed; public ItemSeed m_ItemSeed
+    {
+        get { return m_itemSeed; }
+        set
+        {
+            m_itemSeed = value;
+            if (m_itemSeed == null) m_progress = 0.0f;
+        }
+    }
     public float m_dryness; //The current dryness of the plant
     [SerializeField] BoxCollider2D m_collider;
     [SerializeField] SpriteRenderer m_spiteRenderer;
 
-    [SerializeField] GameObject m_plant;
-    [SerializeField] Sprite[] m_growthStages;
-
     void Update()
     {
-        //m_dryness -= Time.deltaTime;
+        //Do not update plant if no seed is assigned
+        if (m_ItemSeed == null) return;
 
+        //Make the plant patch dry overtime
+        m_dryness -= Time.deltaTime;
 
-        if (m_progress < m_finalProgress)
+        //Make the plant grow overtime
+        if (m_progress < m_ItemSeed.m_finalProgress)
         {
             m_progress += Time.deltaTime;
-
-            int spriteIndex = (int)((m_progress / m_finalProgress) * (m_growthStages.Length-1));
-            if (spriteIndex > m_growthStages.Length) spriteIndex = m_growthStages.Length-1;
-            m_spiteRenderer.sprite = m_growthStages[spriteIndex];
+        
+            //Update sprites
+            int spriteIndex = (int)((m_progress / m_ItemSeed.m_finalProgress) * (m_ItemSeed.m_growthStages.Length-1));
+            if (spriteIndex > m_ItemSeed.m_growthStages.Length) spriteIndex = m_ItemSeed.m_growthStages.Length-1;
+            m_spiteRenderer.sprite = m_ItemSeed.m_growthStages[spriteIndex];
         }
     }
 
     void OnTriggerEnter2D(Collider2D _collision)
     {
-        
+        if (m_ItemSeed == null) return;
     }
 
     void OnTriggerExit2D(Collider2D _collision)
     {
-
+        if (m_ItemSeed == null) return;
     }
 }

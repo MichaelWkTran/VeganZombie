@@ -1,4 +1,4 @@
-using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,7 +7,7 @@ public class Player : CharacterController, IDamageable
     public static Player m_current { get; private set; }
 
     [Header("Combat")]
-    public Weapon m_weapon;
+    [SerializeField] Weapon m_punch;
     float m_cooldown;
     [SerializeField] Transform m_gunTransform;
     [SerializeField] Transform m_gunMuzzle;
@@ -18,21 +18,23 @@ public class Player : CharacterController, IDamageable
 
     [Header("Inputs")]
     InputAction m_moveAction;
-    InputAction m_attackAction;
 
     [Header("Components")]
     [SerializeField] Collider2D m_collider;
     [SerializeField] SpriteRenderer m_spriteRenderer;
-    [SerializeField] Animator m_animator;
+    [SerializeField] Animator m_animator; AnimatorOverrideController m_animatorOverrideController;
     [SerializeField] PlayerInput m_playerInput;
 
     void Start()
     {
         m_current = this;
 
+        //Set Components
+        m_animatorOverrideController = m_animator.runtimeAnimatorController as AnimatorOverrideController;
+
         //Set Inputs
         m_moveAction = m_playerInput.actions["Movement"];
-        m_attackAction = m_playerInput.actions["Attack"];
+        m_playerInput.actions["Action"].started += Action;
     }
 
     new void Update()
@@ -47,20 +49,17 @@ public class Player : CharacterController, IDamageable
             m_lookDir.Normalize();
         }
 
-        //
+        //Update the gun rotation to face the direction of the cursor/right thumbstick
         m_gunTransform.rotation = Quaternion.Euler(0.0f, 0.0f, Vector2.SignedAngle(Vector2.right, m_lookDir));
 
-        //
-        if (m_invincibleCooldown > 0.0f) m_invincibleCooldown -= m_invincibleCooldown;
+        //Update cooldown
+        if (m_invincibleCooldown > 0.0f) m_invincibleCooldown -= Time.deltaTime;
+        if (m_cooldown > 0) m_cooldown -= Time.deltaTime;
 
         #endregion
 
         //Movement
         m_targetVelocity = m_moveAction.ReadValue<Vector2>() * m_moveSpeed;
-
-        //Attack
-        if (m_cooldown > 0) m_cooldown -= Time.deltaTime;
-        if (m_attackAction.IsPressed()) Attack();
     }
 
     void LateUpdate()
@@ -71,58 +70,45 @@ public class Player : CharacterController, IDamageable
         m_animator.SetFloat("Y Dir",          m_lookDir.y);
     }
 
-    private void Attack()
+    public void Action(InputAction.CallbackContext _context)
     {
-        InventorySystem.Slot selectedSlot = GameManager.m_current.m_SelectedHotbarSlot;
-        Weapon weapon = (selectedSlot.m_item != null) ? (Weapon)selectedSlot.m_item : null;
+        //Use item from seleected slot
 
-        if (!selectedSlot.IsValid()) return;
+        //Wait for cooldown to finish before the next item can be used
         if (m_cooldown > 0.0f) return;
 
-        //Set current attack cooldown
-        m_cooldown = weapon.m_cooldownDuration;
+        //Check whether the selected slot contains an item
+        InventorySystem.Slot selectedSlot = GameManager.m_current.m_SelectedHotbarSlot;
+        UsableItem usableItem = selectedSlot.IsValid() ? selectedSlot.m_item as UsableItem : null;
 
-        //Shoot projectile
-        IEnumerator SpawnHitbox(Weapon.Hitbox _hitbox)
-        {
-            //Soawn hitbox after a few seconds
-            yield return new WaitForSeconds(_hitbox.m_hitboxSpawnTime);
-            
-            //Spawn hitbox
-            Collider2D spawnedhitbox = Instantiate(_hitbox.m_prefab, m_gunMuzzle.position, Quaternion.identity);
-            Destroy(spawnedhitbox.gameObject, _hitbox.m_hitboxDuration);
-            Physics2D.IgnoreCollision(m_collider, spawnedhitbox);
-            Physics2D.IgnoreCollision(spawnedhitbox, m_collider);
+        //If no item is held, punch instead
+        if (usableItem == null) usableItem = m_punch;
 
-            //Check whether the hitbox have a rigidbody
-            Rigidbody2D hitboxRigidbody;
-            if (!spawnedhitbox.TryGetComponent(out hitboxRigidbody)) yield break;
-            
-            //Move the hitbox
-            hitboxRigidbody.velocity = Quaternion.Euler(0.0f, 0.0f, _hitbox.m_projectileAngle) * m_lookDir * _hitbox.m_projectileSpeed;
-            if (_hitbox.m_rotateWithVelocity)
-                hitboxRigidbody.transform.rotation =
-                    Quaternion.Euler(0.0f, 0.0f, Vector2.SignedAngle(Vector2.right, hitboxRigidbody.velocity));
+        m_animatorOverrideController["Attack Angle Back"]  = usableItem.m_useItemAngleBack;
+        m_animatorOverrideController["Attack Angle Front"] = usableItem.m_useItemAngleFront;
+        m_animatorOverrideController["Attack Back"       ] = usableItem.m_useItemBack;
+        m_animatorOverrideController["Attack Front"      ] = usableItem.m_useItemFront;
+        m_animatorOverrideController["Attack Side"]        = usableItem.m_useItemSide;
+        m_cooldown = usableItem.m_cooldownDuration;
+        StartCoroutine(usableItem.UseItem(m_collider, m_gunMuzzle.position, m_lookDir));
 
-            //Set Hitbox Damage
-            Hitbox spawnedHitboxInfo = hitboxRigidbody.GetComponent<Hitbox>();
-            if (spawnedHitboxInfo != null) yield break;
-
-            spawnedHitboxInfo = spawnedhitbox.gameObject.AddComponent<Hitbox>();
-            spawnedHitboxInfo.m_damageRecipient = Hitbox.DamageRecipient.Enemy;
-            spawnedHitboxInfo.m_damage = _hitbox.m_hitboxDamage;
-        }
-        foreach (Weapon.Hitbox hitbox in weapon.m_hitbox) StartCoroutine(SpawnHitbox(hitbox));
-        
-        //Play Attack Animation
-        m_animator.SetTrigger("Attack");
+        //Play animation of the player using the item
+        m_animator.SetTrigger("Action");
     }
 
-    public void Damage(float _damage, Vector2 _hitImpulse = new Vector2())
+    void Plant(PlantPatch _plantPatch)
+    {
+
+    }
+
+    public void Damage(float _damage, Vector2 _hitImpulse = new Vector2(), bool _playDamageAnimation = true)
     {
         if (m_invincibleCooldown > 0.0f) return;
         m_invincibleCooldown = m_invincibleTime;
-        
+
+        //Play Damage Animation
+        if (_playDamageAnimation) m_animator.SetTrigger("Damage");
+
         //Flash Sprite
         LeanTween.value(gameObject, 0.0f, 0.1f, 0.5f).setEasePunch().setOnUpdate((float _flashAlpha) => { m_spriteRenderer.material.SetFloat("_FlashAlpha", _flashAlpha); });
 

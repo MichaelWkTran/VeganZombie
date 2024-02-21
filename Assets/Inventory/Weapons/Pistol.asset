@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_description: 
   m_icon: {fileID: 21300000, guid: 246fae8a54cfd224fbb9a27ea870523e, type: 3}
-  m_category: 
   m_capacity: 1
-  m_attackFront: {fileID: 7400000, guid: c696602cbffaaf74893cb7912ad0dd84, type: 2}
-  m_attackAngleFront: {fileID: 7400000, guid: 9e9d734696be37447b8c9b6d7682a662, type: 2}
-  m_attackBack: {fileID: 7400000, guid: 9c3c34fb7a750f24c9908c0e8a1e254a, type: 2}
-  m_attackAngleBack: {fileID: 7400000, guid: 81e5414fa7296964ca9cc999d98c5b69, type: 2}
-  m_attackSide: {fileID: 7400000, guid: ddaa0a0f1d89f0f4b9433564b0c9b9c2, type: 2}
+  m_useItemFront: {fileID: 7400000, guid: ad75d1b864415e246a5ccd25e00637ed, type: 2}
+  m_useItemAngleFront: {fileID: 7400000, guid: ad75d1b864415e246a5ccd25e00637ed, type: 2}
+  m_useItemBack: {fileID: 7400000, guid: ad75d1b864415e246a5ccd25e00637ed, type: 2}
+  m_useItemAngleBack: {fileID: 7400000, guid: ad75d1b864415e246a5ccd25e00637ed, type: 2}
+  m_useItemSide: {fileID: 7400000, guid: ad75d1b864415e246a5ccd25e00637ed, type: 2}
+  m_cooldownDuration: 0.4
   m_hitbox:
   - m_prefab: {fileID: -1311569074260529389, guid: cd6fdff1d5a020d42a61d3a4f1f9e13c, type: 3}
     m_hitboxDamage: 1
@@ -29,4 +29,3 @@ MonoBehaviour:
     m_projectileSpeed: 30
     m_hitboxSpawnTime: 0
     m_hitboxDuration: 0.5
-  m_cooldownDuration: 0.4

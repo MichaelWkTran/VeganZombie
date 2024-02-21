@@ -1,6 +1,6 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.Playables;
+using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -15,10 +15,7 @@ public class GameManager : MonoBehaviour
     float m_health; public float m_Health
     {
         get { return m_health; }
-        set
-        {
-            m_healthSlider.value = m_health = value;
-        }
+        set { m_healthSlider.value = m_health = value; }
     }
     [SerializeField] InventorySystem m_playerInventory; public InventorySystem m_PlayerInventory { get { return m_playerInventory; } }
     public int m_selectedHotbarSlot = 0;
@@ -33,6 +30,10 @@ public class GameManager : MonoBehaviour
     public event OnDayNightChangeDelegate m_onDayNightChange; //Called when m_isDay has changed
     [SerializeField] float m_dayNightDuration = 0.0f; //How long does day or night time last?
     [SerializeField] CanvasGroup m_nightCanvasGroup;
+
+    [Header("Miscellaneous")]
+    [SerializeField] Tilemap m_ploughableTilemap; public Tilemap m_PloughableTilemap { get { return m_ploughableTilemap; } }
+    [SerializeField] GridManager m_gridManager; public GridManager m_GridManager { get { return m_gridManager; } }
 
 
     #region UI

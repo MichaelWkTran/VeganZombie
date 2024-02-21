@@ -65,11 +65,11 @@ public class Enemy : CharacterController, IDamageable
         //
         if (Player.m_current != null && _collision.gameObject == Player.m_current.gameObject)
         {
-            Player.m_current.Damage(1);
+            Player.m_current.Damage(1, (_collision.transform.position - transform.position).normalized * 10.0f);
         }
     }
 
-    public void Damage(float _damage, Vector2 _hitImpulse = new Vector2())
+    public void Damage(float _damage, Vector2 _hitImpulse = new Vector2(), bool _playDamageAnimation = true)
     {
         m_health -= _damage;
 

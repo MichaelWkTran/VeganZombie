@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 69a6a92bd4feb374180560b7a3a50192
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - m_icon: {instanceID: 0}
+  - m_useItemFront: {fileID: 7400000, guid: ad75d1b864415e246a5ccd25e00637ed, type: 2}
+  - m_useItemAngleFront: {fileID: 7400000, guid: ad75d1b864415e246a5ccd25e00637ed, type: 2}
+  - m_useItemBack: {fileID: 7400000, guid: ad75d1b864415e246a5ccd25e00637ed, type: 2}
+  - m_useItemAngleBack: {fileID: 7400000, guid: ad75d1b864415e246a5ccd25e00637ed, type: 2}
+  - m_useItemSide: {fileID: 7400000, guid: ad75d1b864415e246a5ccd25e00637ed, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -2,5 +2,5 @@ using UnityEngine;
 
 public interface IDamageable
 {
-    public void Damage(float _damage, Vector2 _hitImpulse = new Vector2());
+    public void Damage(float _damage, Vector2 _hitImpulse = new Vector2(), bool _playDamageAnimation = true);
 }

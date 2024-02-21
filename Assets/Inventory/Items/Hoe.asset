@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd98d96e78e820347a12badd3c03e208, type: 3}
+  m_Name: Hoe
+  m_EditorClassIdentifier: 
+  m_description: 
+  m_icon: {fileID: 0}
+  m_capacity: 1
+  m_useItemFront: {fileID: 7400000, guid: ad75d1b864415e246a5ccd25e00637ed, type: 2}
+  m_useItemAngleFront: {fileID: 7400000, guid: ad75d1b864415e246a5ccd25e00637ed, type: 2}
+  m_useItemBack: {fileID: 7400000, guid: ad75d1b864415e246a5ccd25e00637ed, type: 2}
+  m_useItemAngleBack: {fileID: 7400000, guid: ad75d1b864415e246a5ccd25e00637ed, type: 2}
+  m_useItemSide: {fileID: 7400000, guid: ad75d1b864415e246a5ccd25e00637ed, type: 2}
+  m_cooldownDuration: 0
+  m_animationSpeed: 0
+  m_plantPatchPrefab: {fileID: 5047451833643918384, guid: 2a0bcd3bafe2edf4b9b5492d312a00c5, type: 3}

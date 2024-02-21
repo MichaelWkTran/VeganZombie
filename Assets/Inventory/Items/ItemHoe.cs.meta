@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: dd98d96e78e820347a12badd3c03e208
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - m_icon: {instanceID: 0}
+  - m_useItemFront: {instanceID: 0}
+  - m_useItemAngleFront: {instanceID: 0}
+  - m_useItemBack: {instanceID: 0}
+  - m_useItemAngleBack: {instanceID: 0}
+  - m_useItemSide: {instanceID: 0}
+  - m_plantPatchPrefab: {fileID: 5047451833643918384, guid: 2a0bcd3bafe2edf4b9b5492d312a00c5, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
