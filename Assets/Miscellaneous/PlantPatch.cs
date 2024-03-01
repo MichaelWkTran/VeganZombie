@@ -39,13 +39,19 @@ public class PlantPatch : GridObject
         }
     }
 
-    void OnTriggerEnter2D(Collider2D _collision)
+    void OnTriggerStay2D(Collider2D _collision)
     {
+        //Do not update plant if no seed is assigned
         if (m_ItemSeed == null) return;
-    }
+        
+        //Check the collided object
+        if (_collision.gameObject == Player.m_current)
+        {
+            if (Player.m_current.m_interactAction.WasPressedThisFrame())
+            {
+                
+            }
+        }
 
-    void OnTriggerExit2D(Collider2D _collision)
-    {
-        if (m_ItemSeed == null) return;
     }
 }

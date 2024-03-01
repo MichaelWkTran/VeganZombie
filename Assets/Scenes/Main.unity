@@ -2186,11 +2186,37 @@ MonoBehaviour:
   m_gunMuzzle: {fileID: 882576438}
   m_invincibleTime: 1
   m_invincibleCooldown: 0
+  m_moveAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 5c83c048-8b79-4d30-a13d-121125db070f
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  m_actionAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 4ce76f7a-1619-40bc-bac8-96e824fd7d55
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  m_interactAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 9070592b-d2d0-463e-8709-eb5e10382f9b
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
   m_collider: {fileID: 1736343977}
   m_spriteRenderer: {fileID: 1736343973}
   m_animator: {fileID: 1736343978}
   m_playerInput: {fileID: 1736343975}
-  m_tempPlantPatchPrefab: {fileID: 0}
 --- !u!1 &1962770256
 GameObject:
   m_ObjectHideFlags: 0

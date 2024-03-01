@@ -17,7 +17,9 @@ public class Player : CharacterController, IDamageable
     [SerializeField] float m_invincibleCooldown;
 
     [Header("Inputs")]
-    InputAction m_moveAction;
+    [HideInInspector] public InputAction m_moveAction;
+    [HideInInspector] public InputAction m_actionAction;
+    [HideInInspector] public InputAction m_interactAction;
 
     [Header("Components")]
     [SerializeField] Collider2D m_collider;
@@ -34,7 +36,8 @@ public class Player : CharacterController, IDamageable
 
         //Set Inputs
         m_moveAction = m_playerInput.actions["Movement"];
-        m_playerInput.actions["Action"].started += Action;
+        m_actionAction = m_playerInput.actions["Action"];
+        m_interactAction = m_playerInput.actions["Interact"];
     }
 
     new void Update()
@@ -58,6 +61,11 @@ public class Player : CharacterController, IDamageable
 
         #endregion
 
+        #region Inputs
+        Action();
+
+        #endregion
+
         //Movement
         m_targetVelocity = m_moveAction.ReadValue<Vector2>() * m_moveSpeed;
     }
@@ -70,8 +78,11 @@ public class Player : CharacterController, IDamageable
         m_animator.SetFloat("Y Dir",          m_lookDir.y);
     }
 
-    public void Action(InputAction.CallbackContext _context)
+    public void Action()
     {
+        //Check whether the action button is pressed
+        if (!m_actionAction.IsPressed()) return;
+
         //Use item from seleected slot
 
         //Wait for cooldown to finish before the next item can be used
@@ -84,6 +95,10 @@ public class Player : CharacterController, IDamageable
         //If no item is held, punch instead
         if (usableItem == null) usableItem = m_punch;
 
+        //
+        if (!usableItem.m_useContinuously && !m_actionAction.WasPressedThisFrame()) return;
+
+        //
         m_animatorOverrideController["Attack Angle Back"]  = usableItem.m_useItemAngleBack;
         m_animatorOverrideController["Attack Angle Front"] = usableItem.m_useItemAngleFront;
         m_animatorOverrideController["Attack Back"       ] = usableItem.m_useItemBack;
@@ -94,11 +109,6 @@ public class Player : CharacterController, IDamageable
 
         //Play animation of the player using the item
         m_animator.SetTrigger("Action");
-    }
-
-    void Plant(PlantPatch _plantPatch)
-    {
-
     }
 
     public void Damage(float _damage, Vector2 _hitImpulse = new Vector2(), bool _playDamageAnimation = true)

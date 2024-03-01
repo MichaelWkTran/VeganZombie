@@ -8,6 +8,7 @@ public class ItemSeed : UsableItem
     public float m_finalProgress; //If progress reached final progress, the plant is ready to be plucked
     public float m_maxDryness; //The max dryness of the plant
     public float m_minDryness; //If below min dryness, the plant is dead
+    public Item m_harvestedItem;
     float m_actionFrame;
 
     public override IEnumerator UseItem(Collider2D _userCollider, Vector3 _spawnPos = default, Vector2 _lookDir = default)

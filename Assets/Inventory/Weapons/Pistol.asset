@@ -21,6 +21,7 @@ MonoBehaviour:
   m_useItemAngleBack: {fileID: 7400000, guid: ad75d1b864415e246a5ccd25e00637ed, type: 2}
   m_useItemSide: {fileID: 7400000, guid: ad75d1b864415e246a5ccd25e00637ed, type: 2}
   m_cooldownDuration: 0.4
+  m_useContinuously: 1
   m_hitbox:
   - m_prefab: {fileID: -1311569074260529389, guid: cd6fdff1d5a020d42a61d3a4f1f9e13c, type: 3}
     m_hitboxDamage: 1

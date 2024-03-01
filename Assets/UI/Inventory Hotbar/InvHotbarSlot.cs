@@ -31,7 +31,7 @@ public class InvHotbarSlot: MonoBehaviour
         //Update slot data
         if (slot.IsValid())
         {
-            m_toggle.interactable = true;
+            //m_toggle.interactable = true;
             m_contentRectTransform.gameObject.SetActive(true);
             m_slotIcon.sprite = slot.m_item.m_icon;
             m_amountText.text = slot.m_amount.ToString();
@@ -39,7 +39,7 @@ public class InvHotbarSlot: MonoBehaviour
         //Disable slot contents if it is empty
         else
         {
-            m_toggle.interactable = false;
+            //m_toggle.interactable = false;
             m_contentRectTransform.gameObject.SetActive(false);
         }
     }
