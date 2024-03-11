@@ -104,7 +104,7 @@ public class DialogueManager : MonoBehaviour
         LeanTween.move(m_dialogTransform, Vector3.zero, m_dialogLerpTime).
             setEase(LeanTweenType.easeOutExpo).setIgnoreTimeScale(true);
         m_canvasGroup.interactable = true;
-        PauseManager.m_current.m_interactionsPaused.Add(this);
+        PauseManager.m_interactionsPaused.Add(this);
     }
 
     public void Close()
@@ -114,7 +114,7 @@ public class DialogueManager : MonoBehaviour
         LeanTween.move(m_dialogTransform, Vector3.down * Screen.height, m_dialogLerpTime).
             setEase(LeanTweenType.easeOutExpo).setIgnoreTimeScale(true);
         m_canvasGroup.interactable = false;
-        PauseManager.m_current.m_interactionsPaused.Remove(this);
+        PauseManager.m_interactionsPaused.Remove(this);
     }
 
     bool CanContinueHaveChoices()

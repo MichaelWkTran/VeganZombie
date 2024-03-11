@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] InventorySystem m_playerInventory; public InventorySystem m_PlayerInventory { get { return m_playerInventory; } }
     public int m_selectedHotbarSlot = 0;
     public InventorySystem.Slot m_SelectedHotbarSlot { get { return m_PlayerInventory.m_slots[m_selectedHotbarSlot]; } }
+    public uint m_money = uint.MaxValue;
+
 
 
     [Header("Day Night Cycle")]
@@ -41,6 +43,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] Slider m_healthSlider;
     [SerializeField] Slider m_timerSlider;
     [SerializeField] ToggleGroup m_hotbarToggleGroup;
+    [SerializeField] RectTransform m_timerHandPivot;
 
     #endregion
 
@@ -100,6 +103,8 @@ public class GameManager : MonoBehaviour
         if (Time.timeScale > 0.0f)
         {
             m_timerSlider.value = m_time;
+            m_timerHandPivot.transform.eulerAngles = new Vector3(m_timerHandPivot.transform.eulerAngles.x, m_timerHandPivot.transform.eulerAngles.y, Mathf.Lerp(0.0f, -180.0f, m_time / m_dayNightDuration));
+
         }
     }
 

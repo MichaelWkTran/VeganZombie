@@ -21,10 +21,13 @@ MonoBehaviour:
   m_useItemAngleBack: {fileID: 7400000, guid: 1dc4cf7c262da8a428844627b7a441a6, type: 2}
   m_useItemSide: {fileID: 7400000, guid: 1dc4cf7c262da8a428844627b7a441a6, type: 2}
   m_cooldownDuration: 0
+  m_useContinuously: 0
   m_growthStages:
-  - {fileID: 21300000, guid: 1290bd344dd015742bac0b6f35888ce5, type: 3}
-  - {fileID: 21300000, guid: 25cb5eae7ad712c4898b64d4446c8b78, type: 3}
-  - {fileID: 21300000, guid: 84b664056fe19c6478dc85bcd84f3cff, type: 3}
+  - {fileID: 2140597789, guid: 0b0e105195fd0bf478a1c5402c644eea, type: 3}
+  - {fileID: -1075526799, guid: 0b0e105195fd0bf478a1c5402c644eea, type: 3}
+  - {fileID: -1448311727, guid: 0b0e105195fd0bf478a1c5402c644eea, type: 3}
+  m_deadSprite: {fileID: 1207250096, guid: 0b0e105195fd0bf478a1c5402c644eea, type: 3}
   m_finalProgress: 3
-  m_maxDryness: 0
-  m_minDryness: 0
+  m_maxDryness: 30
+  m_health: 0
+  m_harvestedItem: {fileID: 11400000, guid: 981f76fccf73b76419c9875d3f74a779, type: 2}

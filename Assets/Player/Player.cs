@@ -95,16 +95,20 @@ public class Player : CharacterController, IDamageable
         //If no item is held, punch instead
         if (usableItem == null) usableItem = m_punch;
 
-        //
+        //Prevent triggering if the item can only be used when pressed on this frame
         if (!usableItem.m_useContinuously && !m_actionAction.WasPressedThisFrame()) return;
 
-        //
+        //Replace action animations
         m_animatorOverrideController["Attack Angle Back"]  = usableItem.m_useItemAngleBack;
         m_animatorOverrideController["Attack Angle Front"] = usableItem.m_useItemAngleFront;
         m_animatorOverrideController["Attack Back"       ] = usableItem.m_useItemBack;
         m_animatorOverrideController["Attack Front"      ] = usableItem.m_useItemFront;
         m_animatorOverrideController["Attack Side"]        = usableItem.m_useItemSide;
+        
+        //Update action cooldown
         m_cooldown = usableItem.m_cooldownDuration;
+        
+        //Use Item
         StartCoroutine(usableItem.UseItem(m_collider, m_gunMuzzle.position, m_lookDir));
 
         //Play animation of the player using the item

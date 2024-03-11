@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 451f19e2cb1ba904dae1abb0bc8e997a
+guid: bab01c549706da841bd39257694ec319
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -43,14 +43,14 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 120
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 0
+  spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -69,7 +69,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 1024
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -121,112 +121,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: Walk_strip5_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 202
-        height: 280
-      alignment: 9
-      pivot: {x: 0.5, y: 0.1298403}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 65f7ea0bcabe5e64b97d13dd60922fbd
-      internalID: -794820581
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Walk_strip5_1
-      rect:
-        serializedVersion: 2
-        x: 202
-        y: 0
-        width: 202
-        height: 280
-      alignment: 9
-      pivot: {x: 0.5, y: 0.1298403}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 42d8ebb5cddd604458e48fa1c11023d1
-      internalID: 1728307093
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Walk_strip5_2
-      rect:
-        serializedVersion: 2
-        x: 404
-        y: 0
-        width: 202
-        height: 280
-      alignment: 9
-      pivot: {x: 0.5, y: 0.1298403}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 647f4b189417f784c903deef3e38c032
-      internalID: 1472173880
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Walk_strip5_3
-      rect:
-        serializedVersion: 2
-        x: 606
-        y: 0
-        width: 202
-        height: 280
-      alignment: 9
-      pivot: {x: 0.5, y: 0.1298403}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e085ad95d98700e4ca3bf98dbb77118b
-      internalID: -168627428
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Walk_strip5_4
-      rect:
-        serializedVersion: 2
-        x: 808
-        y: 0
-        width: 202
-        height: 280
-      alignment: 9
-      pivot: {x: 0.5, y: 0.1298403}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1df9d56761f42be479b337c485d27d26
-      internalID: -14608160
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     physicsShape: []
     bones: []
@@ -237,12 +132,7 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      Walk_strip5_0: -794820581
-      Walk_strip5_1: 1728307093
-      Walk_strip5_2: 1472173880
-      Walk_strip5_3: -168627428
-      Walk_strip5_4: -14608160
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,9 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class InventoryScreen : MonoBehaviour
+namespace InventoryScreenNamespace
 {
-    public InvScreenSlot[] m_screenSlots;
+    public class InventoryScreen : MonoBehaviour
+    {
+        public InventorySlotUI[] m_screenSlots;
+
+        void Start()
+        {
+            for (int slotIndex = 0; slotIndex < m_screenSlots.Length; slotIndex++)
+            {
+                InventorySlotUI inventorySlotUI = m_screenSlots[slotIndex];
+                inventorySlotUI.Init(GameManager.m_current.m_PlayerInventory, slotIndex);
+            }
+        }
+    }
 }

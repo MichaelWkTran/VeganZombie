@@ -10,6 +10,8 @@ MonoImporter:
   - m_useItemBack: {fileID: 7400000, guid: 1dc4cf7c262da8a428844627b7a441a6, type: 2}
   - m_useItemAngleBack: {fileID: 7400000, guid: 1dc4cf7c262da8a428844627b7a441a6, type: 2}
   - m_useItemSide: {fileID: 7400000, guid: 1dc4cf7c262da8a428844627b7a441a6, type: 2}
+  - m_deadSprite: {fileID: 1207250096, guid: 0b0e105195fd0bf478a1c5402c644eea, type: 3}
+  - m_harvestedItem: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
